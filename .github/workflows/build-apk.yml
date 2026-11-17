@@ -1,3 +1,4 @@
+
 name: Build Ombrew APK
 
 on:
@@ -33,7 +34,10 @@ jobs:
 
       - name: Build APK
         run: |
-          gradle -p extracted/OmbrewBusiness assembleDebug
+          gradle -p extracted/OmbrewBusiness assembleDebug \
+            --no-daemon \
+            --max-workers=2 \
+            -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
